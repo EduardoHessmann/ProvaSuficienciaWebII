@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProvaSuficienciaWebII.Domain.Entidades;
 
 namespace ProvaSuficienciaWebII.Infrastructure;
 
@@ -11,7 +12,11 @@ public class ContextoBancoDados : DbContext
     {
     }
 
-    // Os DbSets das entidades serão adicionados aqui conforme o domínio evoluir.
+    public DbSet<Usuario> Usuarios => Set<Usuario>();
+
+    public DbSet<Equipamento> Equipamentos => Set<Equipamento>();
+
+    public DbSet<TipoEquipamento> TiposEquipamento => Set<TipoEquipamento>();
 
     protected override void OnModelCreating(ModelBuilder construtorModelo)
     {
