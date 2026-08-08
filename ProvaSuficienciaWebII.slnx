@@ -1,3 +1,9 @@
 <Solution>
-  <Project Path="ProvaSuficienciaWebII/ProvaSuficienciaWebII.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/ProvaSuficienciaWebII.Api/ProvaSuficienciaWebII.Api.csproj" />
+    <Project Path="src/ProvaSuficienciaWebII.Application/ProvaSuficienciaWebII.Application.csproj" />
+    <Project Path="src/ProvaSuficienciaWebII.Contracts/ProvaSuficienciaWebII.Contracts.csproj" />
+    <Project Path="src/ProvaSuficienciaWebII.Domain/ProvaSuficienciaWebII.Domain.csproj" />
+    <Project Path="src/ProvaSuficienciaWebII.Infrastructure/ProvaSuficienciaWebII.Infrastructure.csproj" />
+  </Folder>
 </Solution>

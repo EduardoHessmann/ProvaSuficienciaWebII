@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.*">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProvaSuficienciaWebII.Application\ProvaSuficienciaWebII.Application.csproj" />
+    <ProjectReference Include="..\ProvaSuficienciaWebII.Infrastructure\ProvaSuficienciaWebII.Infrastructure.csproj" />
+    <ProjectReference Include="..\ProvaSuficienciaWebII.Contracts\ProvaSuficienciaWebII.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
