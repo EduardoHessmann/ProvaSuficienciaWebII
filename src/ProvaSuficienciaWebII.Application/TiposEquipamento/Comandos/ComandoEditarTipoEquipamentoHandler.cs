@@ -17,10 +17,14 @@ public class ComandoEditarTipoEquipamentoHandler(ContextoBancoDados contexto) : 
             .FirstOrDefaultAsync(t => t.Id == comando.Id, cancellationToken);
 
         if (tipo is null)
+        {
             return null;
+        }
 
         if (comando.Dados.Nome is not null)
+        {
             tipo.Nome = comando.Dados.Nome;
+        }
 
         await contexto.SaveChangesAsync(cancellationToken);
 

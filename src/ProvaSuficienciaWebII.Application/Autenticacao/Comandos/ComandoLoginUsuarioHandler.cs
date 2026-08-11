@@ -19,12 +19,16 @@ public class ComandoLoginUsuarioHandler(ContextoBancoDados contexto, IPasswordHa
             .FirstOrDefaultAsync(u => u.Email == comando.Dados.Email, cancellationToken);
 
         if (usuario is null)
+        {
             return null;
+        }
 
         var resultado = hasherSenha.VerifyHashedPassword(usuario, usuario.SenhaHash, comando.Dados.Senha);
 
         if (resultado == PasswordVerificationResult.Failed)
+        {
             return null;
+        }
 
         var tokenGerado = geradorToken.GerarToken(usuario);
 

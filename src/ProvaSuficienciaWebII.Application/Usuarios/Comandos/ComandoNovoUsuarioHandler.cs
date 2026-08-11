@@ -20,7 +20,9 @@ public class ComandoNovoUsuarioHandler(ContextoBancoDados contexto, IPasswordHas
             .AnyAsync(u => u.Email == comando.Dados.Email, cancellationToken);
 
         if (emailJaCadastrado)
+        {
             throw new ExcecaoEmailJaCadastrado();
+        }
 
         var usuario = new Usuario
         {

@@ -20,13 +20,19 @@ public class ComandoEditarEquipamentoHandler(ContextoBancoDados contexto) : IReq
             .FirstOrDefaultAsync(e => e.Id == comando.Id, cancellationToken);
 
         if (equipamento is null)
+        {
             return null;
+        }
 
         if (comando.Dados.Nome is not null)
+        {
             equipamento.Nome = comando.Dados.Nome;
+        }
 
         if (comando.Dados.Tipo is not null)
+        {
             equipamento.Tipo = await ObterOuCriarTipo(comando.Dados.Tipo, cancellationToken);
+        }
 
         await contexto.SaveChangesAsync(cancellationToken);
 
@@ -42,7 +48,9 @@ public class ComandoEditarEquipamentoHandler(ContextoBancoDados contexto) : IReq
             .FirstOrDefaultAsync(t => t.Id == dto.Id, cancellationToken);
 
         if (existente is not null)
+        {
             return existente;
+        }
 
         var novoTipo = new TipoEquipamento { Nome = dto.Nome };
         contexto.TiposEquipamento.Add(novoTipo);

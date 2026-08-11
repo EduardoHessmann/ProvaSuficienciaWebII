@@ -17,13 +17,17 @@ public class ComandoExcluirTipoEquipamentoHandler(ContextoBancoDados contexto) :
             .FirstOrDefaultAsync(t => t.Id == comando.Id, cancellationToken);
 
         if (tipo is null)
+        {
             return false;
+        }
 
         var emUso = await contexto.Equipamentos
             .AnyAsync(e => e.TipoEquipamentoId == tipo.Id, cancellationToken);
 
         if (emUso)
+        {
             throw new ExcecaoTipoEquipamentoEmUso();
+        }
 
         contexto.TiposEquipamento.Remove(tipo);
         await contexto.SaveChangesAsync(cancellationToken);

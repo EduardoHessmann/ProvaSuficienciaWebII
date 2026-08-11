@@ -38,7 +38,9 @@ public class ComandoNovoEquipamentoHandler(ContextoBancoDados contexto) : IReque
             .FirstOrDefaultAsync(t => t.Id == dto.Id, cancellationToken);
 
         if (existente is not null)
+        {
             return existente;
+        }
 
         var novoTipo = new TipoEquipamento { Nome = dto.Nome };
         contexto.TiposEquipamento.Add(novoTipo);

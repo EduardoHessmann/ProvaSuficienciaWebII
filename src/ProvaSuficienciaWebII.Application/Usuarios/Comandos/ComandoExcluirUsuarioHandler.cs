@@ -15,7 +15,9 @@ public class ComandoExcluirUsuarioHandler(ContextoBancoDados contexto) : IReques
             .FirstOrDefaultAsync(u => u.Id == comando.Id, cancellationToken);
 
         if (usuario is null)
+        {
             return false;
+        }
 
         contexto.Usuarios.Remove(usuario);
         await contexto.SaveChangesAsync(cancellationToken);

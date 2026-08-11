@@ -21,7 +21,9 @@ public class ComandoEditarUsuarioHandler(ContextoBancoDados contexto, IPasswordH
             .FirstOrDefaultAsync(u => u.Id == comando.Id, cancellationToken);
 
         if (usuario is null)
+        {
             return null;
+        }
 
         if (comando.Dados.Email is not null && comando.Dados.Email != usuario.Email)
         {
@@ -29,16 +31,22 @@ public class ComandoEditarUsuarioHandler(ContextoBancoDados contexto, IPasswordH
                 .AnyAsync(u => u.Email == comando.Dados.Email && u.Id != usuario.Id, cancellationToken);
 
             if (emailEmUso)
+            {
                 throw new ExcecaoEmailJaCadastrado();
+            }
 
             usuario.Email = comando.Dados.Email;
         }
 
         if (comando.Dados.Nome is not null)
+        {
             usuario.Nome = comando.Dados.Nome;
+        }
 
         if (comando.Dados.Senha is not null)
+        {
             usuario.SenhaHash = hasherSenha.HashPassword(usuario, comando.Dados.Senha);
+        }
 
         await contexto.SaveChangesAsync(cancellationToken);
 

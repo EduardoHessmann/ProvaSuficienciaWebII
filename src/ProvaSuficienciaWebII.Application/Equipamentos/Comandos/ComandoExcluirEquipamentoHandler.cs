@@ -15,7 +15,9 @@ public class ComandoExcluirEquipamentoHandler(ContextoBancoDados contexto) : IRe
             .FirstOrDefaultAsync(e => e.Id == comando.Id, cancellationToken);
 
         if (equipamento is null)
+        {
             return false;
+        }
 
         contexto.Equipamentos.Remove(equipamento);
         await contexto.SaveChangesAsync(cancellationToken);
