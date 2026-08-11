@@ -9,7 +9,7 @@ namespace ProvaSuficienciaWebII.Contracts.Equipamentos.Dto;
 /// </summary>
 public class RequisicaoEditarEquipamento
 {
-    [StringLength(100, ErrorMessage = "O nome deve ter no máximo {1} caracteres.")]
+    [StringLength(100, MinimumLength = 1, ErrorMessage = "O nome deve ter entre {2} e {1} caracteres.")]
     public string? Nome { get; set; }
 
     public RequisicaoTipoEquipamento? Tipo { get; set; }
