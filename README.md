@@ -98,9 +98,3 @@ Como todos os endpoints de equipamentos e tipos exigem autenticação, siga esta
 2. **`POST /login`** — envie e-mail e senha, copie o `token` da resposta
 3. Clique em **Authorize** no topo da página e cole o token
 4. Agora todos os demais endpoints estão liberados
-
----
-
-## Front-end
-
-Existe também um front-end em Angular que consome esta API, com telas de login, cadastro, minha conta e os CRUDs. Ele fica em um projeto separado e não faz parte da entrega.
