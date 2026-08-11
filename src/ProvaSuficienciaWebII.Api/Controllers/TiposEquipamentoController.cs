@@ -13,10 +13,12 @@ namespace ProvaSuficienciaWebII.Api.Controllers;
 public class TiposEquipamentoController(IMediator mediator) : ControllerBase
 {
     /// <summary>
-    /// Lista todos os tipos de equipamento.
+    /// Lista todos os tipos de equipamento. Exige autenticação via token JWT.
     /// </summary>
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(typeof(List<TipoEquipamentoDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Listar()
     {
         var resposta = await mediator.Send(new ConsultarTiposEquipamento());
@@ -24,17 +26,21 @@ public class TiposEquipamentoController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Consulta um tipo de equipamento pelo ID.
+    /// Consulta um tipo de equipamento pelo ID. Exige autenticação via token JWT.
     /// </summary>
     [HttpGet("{id:int}")]
+    [Authorize]
     [ProducesResponseType(typeof(TipoEquipamentoDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> ConsultarPorId(int id)
     {
         var resposta = await mediator.Send(new ConsultarTipoEquipamentoPorId(id));
 
         if (resposta is null)
+        {
             return NotFound(new { erro = "Tipo de equipamento não encontrado." });
+        }
 
         return Ok(resposta);
     }
@@ -67,7 +73,9 @@ public class TiposEquipamentoController(IMediator mediator) : ControllerBase
         var resposta = await mediator.Send(new ComandoEditarTipoEquipamento(id, requisicao));
 
         if (resposta is null)
+        {
             return NotFound(new { erro = "Tipo de equipamento não encontrado." });
+        }
 
         return Ok(resposta);
     }
@@ -89,7 +97,9 @@ public class TiposEquipamentoController(IMediator mediator) : ControllerBase
             var excluido = await mediator.Send(new ComandoExcluirTipoEquipamento(id));
 
             if (!excluido)
+            {
                 return NotFound(new { erro = "Tipo de equipamento não encontrado." });
+            }
 
             return Ok(new { success = new { text = "tipo de equipamento removido" } });
         }

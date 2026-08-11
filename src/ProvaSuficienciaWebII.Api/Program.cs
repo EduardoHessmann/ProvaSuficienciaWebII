@@ -69,6 +69,16 @@ builder.Services.AddDbContext<ContextoBancoDados>(opcoes =>
 builder.Services.AddMediatR(configuracao =>
     configuracao.RegisterServicesFromAssembly(typeof(MarcadorApplication).Assembly));
 
+// CORS: libera o front-end Angular (executado em outra porta) a consumir esta API.
+const string politicaAngular = "PoliticaAngular";
+builder.Services.AddCors(opcoes =>
+{
+    opcoes.AddPolicy(politicaAngular, politica =>
+        politica.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 // Aplica automaticamente as migrations pendentes ao iniciar a aplicação,
@@ -81,13 +91,21 @@ using (var escopo = app.Services.CreateScope())
 
 app.UsePathBase("/RestAPIFurb");
 
+// O CORS precisa vir antes do redirecionamento HTTPS e da autenticação: a requisição
+// de verificação (preflight OPTIONS) não segue redirecionamentos nem envia credenciais.
+app.UseCors(politicaAngular);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Em desenvolvimento o redirecionamento para HTTPS é dispensável
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthentication();
 app.UseAuthorization();

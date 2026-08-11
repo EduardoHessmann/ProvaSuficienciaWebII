@@ -59,7 +59,9 @@ public class UsuariosController(IMediator mediator) : ControllerBase
         var resposta = await mediator.Send(new ConsultarUsuarioPorId(id));
 
         if (resposta is null)
+        {
             return NotFound(new { erro = "Usuário não encontrado." });
+        }
 
         return Ok(resposta);
     }
@@ -82,7 +84,9 @@ public class UsuariosController(IMediator mediator) : ControllerBase
             var resposta = await mediator.Send(new ComandoEditarUsuario(id, requisicao));
 
             if (resposta is null)
+            {
                 return NotFound(new { erro = "Usuário não encontrado." });
+            }
 
             return Ok(resposta);
         }
@@ -105,7 +109,9 @@ public class UsuariosController(IMediator mediator) : ControllerBase
         var excluido = await mediator.Send(new ComandoExcluirUsuario(id));
 
         if (!excluido)
+        {
             return NotFound(new { erro = "Usuário não encontrado." });
+        }
 
         return Ok(new { success = new { text = "usuário removido" } });
     }

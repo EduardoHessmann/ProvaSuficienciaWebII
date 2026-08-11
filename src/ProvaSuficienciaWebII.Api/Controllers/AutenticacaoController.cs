@@ -23,7 +23,9 @@ public class AutenticacaoController(IMediator mediator) : ControllerBase
         var resposta = await mediator.Send(new ComandoLoginUsuario(requisicao));
 
         if (resposta is null)
+        {
             return Unauthorized(new { erro = "E-mail ou senha inválidos." });
+        }
 
         return Ok(resposta);
     }
